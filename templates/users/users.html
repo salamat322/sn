@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% for user in users %}
+        <p>{{ user.username }}</p>
+        <img src="{{ user.profile.image.url }}">
+        <button data-url="{% url 'follow' user.pk %}">Follow</button>
+    {% endfor %}
+{% endblock %}
+
+{#<body>#}
+{#    <div class="message-section" style="display:none;"></div>#}
+{#    {% for user_profile in all_user_profiles %}#}
+{#        <button data-url="{% url "example_app.views.follow_user" user_profile_id=user_profile.id %}"#}
+{#                class="follow-button" type="button">Follow</button>#}
+{#    {% endfor %}#}
+{#</body>#}

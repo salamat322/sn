@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>{% for field in post_form %}
+                {{ field.label_tag }}<br>
+                {{ field }}</p>
+            {% endfor %}
+        <p>{% for field in tag_form %}
+            Tag
+            {{ field }}</p>
+           {% endfor %}
+    <button type="submit">Post</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div>
+        {% for post in posts %}
+            <div><a href="{% url 'post-detail' post.id %}"><img style="width: 800px; height: 400px" src="{{ post.image.url }}"></a>
+                <div><p>{{ post.title }}<br>
+                   Likes {{ post.likes.all.count }}
+                        {{ post.date }}
+                </p>
+                </div>
+            </div>
+        {% endfor %}c
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if profile.avatar %}
+        <img style="max-height: 400px; max-width: 400px;" src="{{ profile.avatar.url }}" alt="user image">
+    {% endif  %}
+    <p style="font-size: 30px; font-family: Ubuntu">{{ profile.description }}</p>
+        {{ profile.follows }}
+    <ul>
+    {% for post in profile.user.post_set.all %}
+        <img style="max-height: 400px; max-width: 400px;" src="{{ post.image.url }}">
+        <h3><a href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h3>
+        {{ post.likes.all.count }}
+    {% endfor %}
+    </ul>
+    {% if user == profile.user %}
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+            {{form.as_p}}
+
+        <button type="submit">Update</button>
+    </form>
+
+{% endif %}
+
+{% endblock content %}

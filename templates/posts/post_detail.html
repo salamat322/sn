@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-md-2">
+
+
+{% block content %}
+    <div class="post_detail">
+        {{ post.user.username }}
+        {{ post.title }}
+        <img src="{{ post.image.url }}">
+        {{ post.content }}
+        {{ post.date }}
+        {% for comment in post.comment_set.all %}
+            <a href="{% url 'profile' user.id %}">{{ comment.user.username }}</a>
+            <p>{{ comment.comment }}</p>
+            {% if comment.user == request.user %}
+            <a href="{% url 'delete-comment' comment.id %}">delete</a>
+            {% endif %}
+        {% endfor %}
+
+    </div>
+    {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ comment_form.as_ul }}
+            <button type="submit">Comment</button>
+        </form>
+
+        <form method="POST">
+        {% csrf_token %}
+            <input type="hidden" name="like">
+        <button type="submit">Like</button>
+        <h4>{{ post.likes.all.count }} likes</h4>
+        </form>
+    {% endif %}
+    {% if user == post.user %}
+        {% csrf_token %}
+            <input type="hidden" name="delete">
+        <button >delete</button>
+    {% endif %}
+{% endblock %}
+        </div>
+    </div>
+</div>
